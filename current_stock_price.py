@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import requests
 import datetime
 
-DB_PATH = '/home/ec2-user/EECS599'
+DB_PATH = '/home/ec2-user/EECS599/'
 
 #Current price class for interaction with SQL database.
 Base = declarative_base()
@@ -13,6 +13,7 @@ Base = declarative_base()
 class CurPrice(Base):
     __tablename__='current_prices'
 
+    id = Column(Integer, primary_key=True)
     cur_time = Column(String(50), primary_key=True)
     company = Column(String(50))
     price = Column(Float)
