@@ -1,0 +1,30 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf190
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red236\green236\blue236;}
+\margl1440\margr1440\vieww12440\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf2 \cb1 EECS 599 Winter 2014 Project Summary                    				                                                
+\f1\fs28 \cb3 \
+\pard\pardeftab720\sl360
+
+\f0\fs24 \cf2 \cb1 \
+- Accomplishments\
+During the Winter 2014 term, the first big thing was to gain a working knowledge of the python programming language, then learn how to use the BeautifulSoup module to scrape financial data about options from the yahoo finance web pages. For given stock tickers (kept in a file called option_file.txt) code was written to access the current stock price, price of last trade of the stock, put and call option data (strike prices, expiration dates, last trades, bids, and asks),  and order book data all with time stamps. \
+\
+Next, booted up an amazon ec2 instance, then using github, moved the code from my machine onto the ec2 instance. Once the code was there, we needed a way to store the data pulled off of the yahoo finance pages, so we installed MySQL onto the ec2 instance, created a database called financial_data, and edited the code to access the database and store everything into 5 tables: current_prices for the current stock prices, last_trade for all last trade values, options for all put and call option data, and bids and asks for all order book data. Also, wrote code to print all last trade values, order book values, current price values, and option values as a way to access the data once it was stored in the database. Later, this code can be edited to access and use the data in order to compute Black Scholes option prices. \
+\
+Using crontab, began running the current price scraping/storing code every minute in order keep track of how the stock prices of the option_file.txt tickers are changing, which will be used to compute the volatility of those stocks. Also, the last trade, order book, and option scraping/storing code were all set to run every 5 minutes. \
+\
+Then, a python script was written that, when given the current stock price, strike price, interest rate, stock volatility, time to expiration, and whether the option is a put or a call, will compute the Black Scholes price for a given option. \
+\
+- Future Directions\
+After about a week of the code running via crontab, the mysql server on the ec2 instance shut down and will not start back up. After a little bit of googling, I believe the issue is that the database memory filled  up. \
+The option scraping code originally written currently pulls the incorrect expiration date for the options on the yahoo finance page. Once the mysql server issue has been corrected, this code will be edited to pull the correct expiration date, then compute the time (in trading years) to expiration for each option available. \
+Also, code will be written to access all stored stock prices for a given ticker and compute the current volatility of that stock. \
+Once time to expiration and volatility code have been written, the Black Scholes code will be updated to access the database to compute volatility, time to expiration, and then the Black Scholes price being given only a ticker and a strike price. \
+Next, once the scrapping code has run long enough to collect sufficient data, code will be written using matplotlib to plot Black Scholes data and current strike price data over a time interval of around 6 months. \
+	 \
+\
+\
+ }

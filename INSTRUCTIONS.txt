@@ -1,0 +1,35 @@
+Instructions 
+1. If not already done, install MySQL and the MySQLdb python module on your computer
+2. Make sure the mysql server is running
+	should work with 
+		$sudo service mysqld start
+	but there are many different ways to start it and it varies for different 
+	operating systems. 
+3. Create the financial_data database
+		$ mysql -u root -p
+		then enter root password
+	Once in mysql 
+		mysql> create database financial_data;
+	If you want to have access to the database with another user, 
+		mysql> create user ‘username’@‘localhost’
+	Must grant privileges to new user
+		mysql> grant usage on *.* to username@localhost identified by ‘password’
+			- allows username to connect with password ‘password’
+		mysql> grant all privileges on financial_data.* to username@localhost
+4. The create engine statement to access a database in the python code should look something like this:
+	dialect+driver://username:password@host:port/database
+Since we are using python and mysqldb, for 
+	username = scott
+	password = tiger
+	database = financial_data
+the create engine statement will be this
+	engine = create_engine(‘mysql+mysqldb://scott:tiger@localhost/financial_data')
+
+5. To run the programs using crontab, make sure !#/usr/bin/python is at the top of the
+python program you want to run, then open crontab with 
+	$sudo crontab -e
+and the crontab entries should look like 
+	* * * * * /path/to/python/script/…/pythonscript.py
+
+
+
